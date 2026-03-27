@@ -211,7 +211,7 @@ const DashboardPage = () => {
         </div>
 
         {/* Tabs Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 md:gap-4">
           {[
             { id: 'overview', label: 'Visão Geral', icon: Star },
             { id: 'checkins', label: 'Check-ins', icon: Users },
@@ -222,12 +222,12 @@ const DashboardPage = () => {
             <button
               key={tab.id}
               onClick={() => setCurrentTab(tab.id as Tab)}
-              className={`flex items-center justify-center gap-2 p-4 rounded-xl font-bold transition-all
+              className={`flex items-center justify-center gap-2 p-3 md:p-4 rounded-xl font-bold transition-all text-xs md:text-sm lg:text-base
                 ${currentTab === tab.id
                   ? "bg-gradient-to-r from-primary to-secondary text-white shadow-lg scale-[1.02]"
                   : "bg-card text-muted-foreground hover:bg-card/80"}`}
             >
-              <tab.icon size={18} /> {tab.label}
+              <tab.icon size={18} className="shrink-0" /> <span className="truncate">{tab.label}</span>
             </button>
           ))}
         </div>

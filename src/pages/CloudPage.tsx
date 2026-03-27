@@ -135,8 +135,8 @@ const CloudPage = () => {
         </div>
 
         {/* Input Form */}
-        <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-          <div className="flex gap-3 items-end">
+        <form onSubmit={handleSubmit} className="max-w-md mx-auto px-2">
+          <div className="flex gap-2 sm:gap-3 items-end">
             <div className="flex-grow">
               <GradientInput
                 placeholder="Digite uma palavra..."
@@ -147,7 +147,7 @@ const CloudPage = () => {
             <button
               type="submit"
               disabled={loading || !newWord.trim()}
-              className="mb-5 p-4 rounded-xl text-white font-black 
+              className="mb-4 sm:mb-5 p-3 sm:p-4 rounded-xl text-white font-black 
                 bg-gradient-to-r from-primary to-secondary
                 hover:brightness-110 hover:scale-[1.03] transition-all duration-300 
                 shadow-xl disabled:opacity-50 disabled:hover:scale-100"
@@ -158,8 +158,8 @@ const CloudPage = () => {
         </form>
 
         {/* Word Cloud Display */}
-        <GlassCard className="min-h-[300px]">
-          <div className="flex items-center justify-center h-full min-h-[250px]">
+        <GlassCard className="min-h-[200px] sm:min-h-[300px]">
+          <div className="flex items-center justify-center h-full min-h-[180px] sm:min-h-[250px]">
             {words.length === 0 ? (
               <div className="text-center text-muted-foreground py-16">
                 <p className="text-xl mb-2">Nenhuma palavra ainda</p>

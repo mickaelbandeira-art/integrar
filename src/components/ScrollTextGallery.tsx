@@ -163,11 +163,11 @@ export const ScrollTextGallery: React.FC = () => {
   return (
     <div ref={sectionRef} className="relative w-full overflow-hidden bg-[#0d0d0d]" style={{ height: '100vh' }}>
       {/* Ghostly Label — background text */}
-      <div ref={labelRef} className="absolute top-10 left-10 z-10 pointer-events-none select-none">
+      <div ref={labelRef} className="absolute top-10 left-5 md:left-10 z-10 pointer-events-none select-none">
         <h2
           className="font-black uppercase leading-none"
           style={{
-            fontSize: 'clamp(4rem, 10vw, 9rem)',
+            fontSize: 'clamp(2.8rem, 10vw, 9rem)',
             color: 'rgba(255,255,255,0.02)',
             letterSpacing: '-0.04em',
           }}
@@ -195,9 +195,9 @@ export const ScrollTextGallery: React.FC = () => {
             <div
               key={card.id}
               className={`text-card relative flex-shrink-0 group cursor-default
-                ${index % 2 === 0 ? 'self-start mt-12' : 'self-end mb-12'}
+                ${index % 2 === 0 ? 'self-start mt-8 md:mt-12' : 'self-end mb-8 md:mb-12'}
               `}
-              style={{ width: 'clamp(300px, 30vw, 450px)' }}
+              style={{ width: 'clamp(260px, 30vw, 450px)' }}
             >
               {/* Card body — "Grass" glassmorphism style */}
               <div
@@ -232,7 +232,7 @@ export const ScrollTextGallery: React.FC = () => {
                 </div>
 
                 {/* Content padding */}
-                <div className="p-10 flex flex-col flex-grow">
+                <div className="p-6 md:p-10 flex flex-col flex-grow">
                   {/* Accent tag */}
                   <div className="flex items-center gap-3 mb-6">
                     <div

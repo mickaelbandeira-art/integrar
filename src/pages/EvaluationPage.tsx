@@ -98,7 +98,7 @@ const EvaluationPage = () => {
               <label className="block font-semibold mb-3 text-foreground">
                 1. Como você avalia o evento?
               </label>
-              <div className="flex justify-center gap-2 mb-2">
+              <div className="flex justify-center gap-1 sm:gap-2 mb-2">
                 {[1, 2, 3, 4, 5].map(s => (
                   <button
                     key={s}
@@ -107,7 +107,7 @@ const EvaluationPage = () => {
                     className="transition-all duration-200 hover:scale-125 p-1"
                   >
                     <Star
-                      size={40}
+                      className="w-10 h-10 sm:w-12 sm:h-12"
                       fill={s <= form.rating ? "hsl(46, 100%, 47%)" : "transparent"}
                       color={s <= form.rating ? "hsl(46, 100%, 47%)" : "hsl(var(--muted-foreground))"}
                       strokeWidth={1.5}
@@ -125,7 +125,7 @@ const EvaluationPage = () => {
               <label className="block font-semibold mb-3 text-foreground">
                 2. Como você avalia a palestra do evento?
               </label>
-              <div className="flex justify-center gap-2 mb-2">
+              <div className="flex justify-center gap-1 sm:gap-2 mb-2">
                 {[1, 2, 3, 4, 5].map(s => (
                   <button
                     key={s}
@@ -134,7 +134,7 @@ const EvaluationPage = () => {
                     className="transition-all duration-200 hover:scale-125 p-1"
                   >
                     <Star
-                      size={40}
+                      className="w-10 h-10 sm:w-12 sm:h-12"
                       fill={s <= form.lectureRating ? "hsl(46, 100%, 47%)" : "transparent"}
                       color={s <= form.lectureRating ? "hsl(46, 100%, 47%)" : "hsl(var(--muted-foreground))"}
                       strokeWidth={1.5}

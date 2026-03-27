@@ -106,8 +106,8 @@ export const ScrollGallery: React.FC = () => {
   return (
     <div ref={sectionRef} className="relative w-full overflow-hidden bg-[#f0ede8]" style={{ height: '100vh' }}>
       {/* Floating Label — faint background text, drifts with scroll */}
-      <div ref={labelRef} className="absolute top-10 left-10 z-10 pointer-events-none">
-        <h2 className="text-[10vw] md:text-[8vw] font-black uppercase tracking-tighter text-black/[0.06] leading-none select-none">
+      <div ref={labelRef} className="absolute top-10 left-5 md:left-10 z-10 pointer-events-none">
+        <h2 className="text-[14vw] sm:text-[10vw] md:text-[8vw] font-black uppercase tracking-tighter text-black/[0.06] leading-none select-none">
           MOMENTOS <br />INTEGRAR
         </h2>
       </div>
@@ -122,16 +122,16 @@ export const ScrollGallery: React.FC = () => {
       <div className="flex items-stretch min-h-screen py-24">
         <div
           ref={galleryRef}
-          className="flex gap-5 items-stretch flex-nowrap pl-[8vw] pr-[30vw]"
+          className="flex gap-4 sm:gap-5 items-stretch flex-nowrap pl-[10vw] pr-[40vw] sm:pr-[30vw]"
           style={{ willChange: 'transform' }}
         >
           {galleryData.map((item, index) => (
             <div
               key={item.id}
               className={`gallery-card relative flex-shrink-0 group cursor-pointer
-                ${index % 2 === 0 ? 'self-start mt-16' : 'self-end mb-16'}
+                ${index % 2 === 0 ? 'self-start mt-10 md:mt-16' : 'self-end mb-10 md:mb-16'}
               `}
-              style={{ width: 'clamp(280px, 28vw, 420px)' }}
+              style={{ width: 'clamp(240px, 28vw, 420px)' }}
             >
               {/* Card — Aeolla vertical portrait format */}
               <div className="relative w-full overflow-hidden rounded-3xl shadow-xl"

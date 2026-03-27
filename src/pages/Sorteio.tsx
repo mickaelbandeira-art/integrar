@@ -163,7 +163,7 @@ const Sorteio = () => {
                 {/* Animation Display Overlay */}
                 {isDrawing && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-                        <div className="text-9xl font-black text-white animate-pulse drop-shadow-[0_0_50px_rgba(255,255,255,0.5)]">
+                        <div className="text-7xl sm:text-9xl font-black text-white animate-pulse drop-shadow-[0_0_50px_rgba(255,255,255,0.5)]">
                             {displayNumber}
                         </div>
                     </div>

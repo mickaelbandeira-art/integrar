@@ -147,7 +147,7 @@ export const ScrollVideoHero: React.FC<ScrollVideoHeroProps> = ({
             <h1
               className="hero-line-1 font-black text-white tracking-tighter leading-none block select-none"
               style={{
-                fontSize: 'clamp(4rem, 13vw, 11rem)',
+                fontSize: 'clamp(3.2rem, 13vw, 11rem)',
                 transform: 'translateY(0%)',
                 textShadow: '0 8px 40px rgba(0,0,0,0.35)',
                 letterSpacing: '-0.04em',

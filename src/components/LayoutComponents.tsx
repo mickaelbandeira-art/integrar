@@ -59,7 +59,7 @@ export const GradientButton = ({
       onClick={onClick}
       disabled={disabled}
       className={`
-        w-full py-4 px-8 rounded-full text-white font-black text-lg
+        w-full py-3 md:py-4 px-6 md:px-8 rounded-full text-white font-black text-base md:text-lg
         ${gradients[variant]}
         hover:brightness-110 hover:scale-[1.03] hover:shadow-2xl
         active:scale-[0.98]
@@ -101,8 +101,8 @@ export const GradientInput = ({
           value={value}
           onChange={onChange}
           placeholder={placeholder}
-          className="relative w-full py-4 px-5 rounded-[10px] outline-none bg-white dark:bg-gray-900 text-foreground 
-            placeholder:text-muted-foreground/70 shadow-sm
+          className="relative w-full py-3 md:py-4 px-4 md:px-5 rounded-[10px] outline-none bg-white dark:bg-gray-900 text-foreground 
+            placeholder:text-muted-foreground/70 shadow-sm text-sm md:text-base
             transition-all duration-300"
         />
       </div>
@@ -113,7 +113,7 @@ export const GradientInput = ({
 import logoAeCColor from '@/assets/aec-logo-original.png';
 
 export const IntegrarLogo = ({ size = "large" }: { size?: "small" | "large" }) => {
-  const heightClass = size === "large" ? "h-20 md:h-28" : "h-12 md:h-16";
+  const heightClass = size === "large" ? "h-16 sm:h-20 md:h-28" : "h-10 sm:h-12 md:h-16";
 
   return (
     <div className="flex justify-center items-center select-none py-4">
@@ -206,11 +206,11 @@ export const Layout = ({ children, showLogo = true }: { children: React.ReactNod
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'bg-primary/95 backdrop-blur-md shadow-lg' : 'bg-gradient-to-r from-primary to-primary/90'}`}>
         <div className="max-w-7xl mx-auto px-6 sm:px-10 py-5 flex justify-between items-center">
           {/* Logo */}
-          <button onClick={() => navigate('/')} className="flex items-center gap-3 group">
+          <button onClick={() => navigate('/')} className="flex items-center gap-2 sm:gap-3 group shrink-0">
             <img
               src={logoAeC}
               alt="AEC Logo"
-              className="h-14 w-auto transition-transform group-hover:scale-105"
+              className="h-10 sm:h-12 md:h-14 w-auto transition-transform group-hover:scale-105"
             />
           </button>
 
@@ -379,7 +379,7 @@ export const Layout = ({ children, showLogo = true }: { children: React.ReactNod
 // Glass Card Component
 export const GlassCard = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
   <div className={`relative p-[2px] rounded-xl bg-gradient-to-r from-primary to-secondary shadow-md hover:shadow-lg transition-shadow duration-300 ${className}`}>
-    <div className="bg-white dark:bg-gray-900 rounded-[10px] p-6 md:p-8 h-full w-full">
+    <div className="bg-white dark:bg-gray-900 rounded-[10px] p-5 md:p-8 h-full w-full">
       {children}
     </div>
   </div>
