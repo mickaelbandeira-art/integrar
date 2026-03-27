@@ -127,7 +127,7 @@ const Sorteio = () => {
                     <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-center md:text-left">
                         <span className="text-xl md:text-2xl font-bold text-gray-700 dark:text-white">Sortear</span>
 
-                        <div className="relative group p-[2px] rounded-lg bg-gradient-to-r from-[hsl(195,100%,55%)] to-[hsl(347,78%,60%)] w-20">
+                        <div className="relative group p-[2px] rounded-lg bg-gradient-to-r from-primary to-secondary w-20">
                             <input
                                 type="number"
                                 value={count}
@@ -138,7 +138,7 @@ const Sorteio = () => {
 
                         <span className="text-xl md:text-2xl font-bold text-gray-700 dark:text-white">número(s) entre</span>
 
-                        <div className="relative group p-[2px] rounded-lg bg-gradient-to-r from-[hsl(195,100%,55%)] to-[hsl(347,78%,60%)] w-24">
+                        <div className="relative group p-[2px] rounded-lg bg-gradient-to-r from-primary to-secondary w-24">
                             <input
                                 type="number"
                                 value={min}
@@ -149,7 +149,7 @@ const Sorteio = () => {
 
                         <span className="text-xl md:text-2xl font-bold text-gray-700 dark:text-white">e</span>
 
-                        <div className="relative group p-[2px] rounded-lg bg-gradient-to-r from-[hsl(195,100%,55%)] to-[hsl(347,78%,60%)] w-24">
+                        <div className="relative group p-[2px] rounded-lg bg-gradient-to-r from-primary to-secondary w-24">
                             <input
                                 type="number"
                                 value={max}
@@ -180,7 +180,7 @@ const Sorteio = () => {
                             <div key={item.id} className="animate-scale-in">
                                 <div className={`
                     relative p-[2px] rounded-xl overflow-hidden
-                    ${index === 0 ? 'bg-gradient-to-r from-[hsl(195,100%,55%)] to-[hsl(347,78%,60%)] shadow-xl scale-105 my-6' : 'bg-white/10 dark:bg-white/5 border border-white/20'}
+                    ${index === 0 ? 'bg-gradient-to-r from-primary to-secondary shadow-xl scale-105 my-6' : 'bg-white/10 dark:bg-white/5 border border-white/20'}
                   `}>
                                     <div className={`${index === 0 ? 'bg-gray-900' : 'bg-transparent'} rounded-[10px] p-6 flex flex-col items-center justify-center`}>
                                         <span className={`font-black ${index === 0 ? 'text-6xl text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent' : 'text-4xl text-gray-600 dark:text-gray-300'}`}>

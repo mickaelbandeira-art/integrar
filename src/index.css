@@ -17,16 +17,16 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 20%;
 
-    --primary: 210 100% 29%;
+    --primary: 208 74% 40%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 45 100% 53%;
+    --secondary: 46 100% 47%;
     --secondary-foreground: 0 0% 15%;
 
     --muted: 220 15% 92%;
     --muted-foreground: 220 10% 45%;
 
-    --accent: 45 100% 53%;
+    --accent: 46 100% 47%;
     --accent-foreground: 0 0% 15%;
 
     --destructive: 0 84% 60%;
@@ -202,11 +202,11 @@ body::before {
 
 /* ─── HEADER ADAPTIVE BLUR ─── */
 .nav-scrolled {
-  background: rgba(255, 255, 255, 0.85) !important;
+  background: rgba(26, 106, 176, 0.95) !important;
   backdrop-filter: blur(20px) !important;
   -webkit-backdrop-filter: blur(20px) !important;
-  box-shadow: 0 1px 24px rgba(0, 0, 0, 0.07);
-  transition: background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+  transition: background 0.4s ease, backdrop-filter 0.4s ease;
 }
 
 .nav-transparent {

@@ -70,12 +70,12 @@ const CloudProjection = () => {
         const h = dimensions.height;
 
         const colors = [
-            "hsl(195, 100%, 50%)",
-            "hsl(347, 78%, 60%)",
-            "hsl(280, 70%, 55%)",
-            "hsl(195, 100%, 40%)",
-            "hsl(347, 70%, 50%)",
-            "hsl(45, 100%, 50%)"
+            "hsl(208, 74%, 40%)", // AeC Blue
+            "hsl(46, 100%, 47%)",  // AeC Gold
+            "hsl(210, 100%, 25%)", // Dark Blue
+            "hsl(200, 100%, 55%)", // Light Blue
+            "hsl(210, 100%, 35%)", // Mid Blue
+            "hsl(46, 100%, 40%)"   // Dark Gold
         ];
 
         const layout = cloud<{ text: string; size: number }>()

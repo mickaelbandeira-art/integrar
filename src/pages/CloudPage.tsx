@@ -147,10 +147,10 @@ const CloudPage = () => {
             <button
               type="submit"
               disabled={loading || !newWord.trim()}
-              className="mb-5 p-4 rounded-xl text-white font-bold 
-                bg-gradient-to-r from-[hsl(195,100%,55%)] to-[hsl(347,78%,60%)]
-                hover:opacity-90 hover:scale-105 transition-all duration-300 
-                shadow-lg disabled:opacity-50 disabled:hover:scale-100"
+              className="mb-5 p-4 rounded-xl text-white font-black 
+                bg-gradient-to-r from-primary to-secondary
+                hover:brightness-110 hover:scale-[1.03] transition-all duration-300 
+                shadow-xl disabled:opacity-50 disabled:hover:scale-100"
             >
               <Send className="w-5 h-5" />
             </button>

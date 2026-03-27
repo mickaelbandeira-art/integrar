@@ -141,16 +141,17 @@ export const ScrollVideoHero: React.FC<ScrollVideoHeroProps> = ({
       {/* Content */}
       <div className="relative z-10 w-full h-screen flex items-center justify-center">
 
-        {/* Scene 1: INTEGRAR */}
+        {/* Scene 1: INTEGRAR - Visible by default to prevent flicker */}
         <div id="scene-1" className="absolute flex flex-col items-center gap-5 px-4 text-center">
           <div className="overflow-hidden">
             <h1
               className="hero-line-1 font-black text-white tracking-tighter leading-none block select-none"
               style={{
                 fontSize: 'clamp(4rem, 13vw, 11rem)',
-                transform: 'translateY(115%)',
+                transform: 'translateY(0%)',
                 textShadow: '0 8px 40px rgba(0,0,0,0.35)',
-                letterSpacing: '-0.04em'
+                letterSpacing: '-0.04em',
+                opacity: 1
               }}
             >
               INTEGRAR
@@ -163,23 +164,22 @@ export const ScrollVideoHero: React.FC<ScrollVideoHeroProps> = ({
               style={{
                 width: 'clamp(80px, 12vw, 160px)',
                 background: 'linear-gradient(90deg, #f0b800, #ffd94d)',
-                transform: 'translateY(115%)',
-                opacity: 0,
+                transform: 'translateY(0%)',
+                opacity: 1,
                 boxShadow: '0 0 24px rgba(240,184,0,0.5)'
               }}
             />
           </div>
         </div>
 
-        {/* Scene 2: Subtitle */}
-        <div id="scene-2" className="absolute flex flex-col items-center gap-5 px-6 max-w-2xl text-center">
+        {/* Scene 2: Subtitle - Hidden by default */}
+        <div id="scene-2" className="absolute flex flex-col items-center gap-5 px-6 max-w-2xl text-center" style={{ opacity: 0 }}>
           <div className="overflow-hidden">
             <h2
               className="hero-sub-1 font-bold text-white block"
               style={{
                 fontSize: 'clamp(2rem, 5vw, 4rem)',
                 transform: 'translateY(115%)',
-                opacity: 0,
                 textShadow: '0 4px 24px rgba(0,0,0,0.4)',
                 letterSpacing: '-0.02em'
               }}
@@ -192,15 +192,14 @@ export const ScrollVideoHero: React.FC<ScrollVideoHeroProps> = ({
             style={{
               fontSize: 'clamp(1rem, 2vw, 1.25rem)',
               color: 'rgba(255,255,255,0.82)',
-              opacity: 0
             }}
           >
             O hub interativo que conecta você a cada momento do nosso evento em tempo real.
           </p>
         </div>
 
-        {/* Scene 3: CTA */}
-        <div id="scene-3" className="absolute flex flex-col items-center gap-8 px-4 w-full max-w-md text-center">
+        {/* Scene 3: CTA - Hidden by default */}
+        <div id="scene-3" className="absolute flex flex-col items-center gap-8 px-4 w-full max-w-md text-center" style={{ opacity: 0 }}>
           <div className="space-y-3">
             <h3
               className="font-bold text-white italic"

@@ -124,7 +124,7 @@ const Joias = () => {
             <div className="w-full max-w-4xl mx-auto pb-24 animate-fade-in px-4">
 
                 <div className="text-center mb-8 space-y-2">
-                    <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[hsl(315,100%,50%)] to-[hsl(347,78%,60%)]">
+                    <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
                         Escolha sua Joia
                     </h1>
                     <p className="text-foreground/80">
@@ -142,7 +142,7 @@ const Joias = () => {
                                 className="cursor-pointer hover:scale-105 transition-transform duration-300 h-full"
                             >
                                 <GlassCard
-                                    className="h-full border-2 border-transparent hover:border-[hsl(315,100%,75%)]"
+                                    className="h-full border-2 border-transparent hover:border-secondary/50"
                                 >
                                     <div className="flex flex-col items-center w-full">
                                         <div className="relative w-28 h-28 mb-3 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">

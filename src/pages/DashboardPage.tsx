@@ -131,13 +131,13 @@ const DashboardPage = () => {
     return (
       <div className="min-h-screen flex items-center justify-center bg-muted p-4">
         <GlassCard className="w-full max-w-sm text-center">
-          <Lock className="mx-auto mb-4 text-[hsl(347,78%,60%)]" size={48} />
+          <Lock className="mx-auto mb-4 text-secondary" size={48} />
           <h2 className="text-xl font-bold mb-4 text-foreground">Acesso Administrativo</h2>
 
           <input
             type="email"
             placeholder="Email"
-            className="w-full p-3 rounded-lg mb-4 bg-background/50 border border-border text-foreground focus:outline-none focus:ring-2 focus:ring-[hsl(347,78%,60%)]"
+            className="w-full p-3 rounded-lg mb-4 bg-background/50 border border-border text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
             value={email}
             onChange={e => setEmail(e.target.value)}
           />
@@ -145,7 +145,7 @@ const DashboardPage = () => {
           <input
             type="password"
             placeholder="Senha"
-            className="w-full p-3 rounded-lg mb-4 bg-background/50 border border-border text-foreground focus:outline-none focus:ring-2 focus:ring-[hsl(347,78%,60%)]"
+            className="w-full p-3 rounded-lg mb-4 bg-background/50 border border-border text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
             value={pwd}
             onChange={e => setPwd(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && handleLogin()}
@@ -180,7 +180,7 @@ const DashboardPage = () => {
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <div>
-            <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[hsl(195,100%,55%)] to-[hsl(347,78%,60%)]">
+            <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
               Dashboard Admin
             </h1>
             <p className="text-muted-foreground">Visão geral do evento em tempo real</p>
@@ -195,7 +195,7 @@ const DashboardPage = () => {
             </button>
             <button
               onClick={() => navigate('/sorteio')}
-              className="px-4 py-2 rounded-lg bg-gradient-to-r from-[hsl(195,100%,55%)] to-[hsl(347,78%,60%)] text-white hover:opacity-90 transition font-bold flex items-center gap-2"
+              className="px-4 py-2 rounded-lg bg-gradient-to-r from-primary to-secondary text-white hover:brightness-110 transition font-bold flex items-center gap-2 shadow-lg"
               title="Ir para Sorteio"
             >
               <Dices size={20} />
@@ -224,7 +224,7 @@ const DashboardPage = () => {
               onClick={() => setCurrentTab(tab.id as Tab)}
               className={`flex items-center justify-center gap-2 p-4 rounded-xl font-bold transition-all
                 ${currentTab === tab.id
-                  ? "bg-gradient-to-r from-[hsl(195,100%,55%)] to-[hsl(347,78%,60%)] text-white shadow-lg scale-[1.02]"
+                  ? "bg-gradient-to-r from-primary to-secondary text-white shadow-lg scale-[1.02]"
                   : "bg-card text-muted-foreground hover:bg-card/80"}`}
             >
               <tab.icon size={18} /> {tab.label}
@@ -237,18 +237,18 @@ const DashboardPage = () => {
           <div className="space-y-6 animate-fade-in">
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <GlassCard className="border-l-4 border-l-[hsl(195,100%,44%)]">
+              <GlassCard className="border-l-4 border-l-primary">
                 <div className="flex justify-between items-start mb-2">
                   <p className="text-muted-foreground font-medium">Total Check-ins</p>
-                  <Users className="text-[hsl(195,100%,44%)]" size={20} />
+                  <Users className="text-primary" size={20} />
                 </div>
                 <h3 className="text-4xl font-bold text-foreground">{data.checkins.length}</h3>
               </GlassCard>
 
-              <GlassCard className="border-l-4 border-l-[hsl(347,78%,60%)]">
+              <GlassCard className="border-l-4 border-l-secondary">
                 <div className="flex justify-between items-start mb-2">
                   <p className="text-muted-foreground font-medium">Avaliações</p>
-                  <Star className="text-[hsl(347,78%,60%)]" size={20} />
+                  <Star className="text-secondary" size={20} />
                 </div>
                 <h3 className="text-4xl font-bold text-foreground">{data.evaluations.length}</h3>
               </GlassCard>
@@ -281,7 +281,7 @@ const DashboardPage = () => {
                     />
                     <Bar dataKey="val" radius={[4, 4, 0, 0]}>
                       {starData.map((_, i) => (
-                        <Cell key={i} fill={i > 2 ? "hsl(195, 100%, 44%)" : "hsl(347, 78%, 60%)"} />
+                        <Cell key={i} fill={i > 2 ? "hsl(var(--primary))" : "hsl(var(--secondary))"} />
                       ))}
                     </Bar>
                   </BarChart>
@@ -298,7 +298,7 @@ const DashboardPage = () => {
               <h3 className="font-bold text-xl text-foreground">Lista de Presença</h3>
               <button
                 onClick={() => exportCSV('checkins')}
-                className="text-sm flex items-center gap-2 text-[hsl(195,100%,44%)] hover:underline font-medium"
+                className="text-sm flex items-center gap-2 text-primary hover:underline font-medium"
               >
                 <Download size={16} /> Exportar CSV
               </button>
@@ -328,7 +328,7 @@ const DashboardPage = () => {
                             href={`https://www.google.com/maps?q=${c.latitude},${c.longitude}`}
                             target="_blank"
                             rel="noreferrer"
-                            className="text-xs bg-[hsl(195,100%,44%)]/10 text-[hsl(195,100%,44%)] px-2 py-1 rounded hover:bg-[hsl(195,100%,44%)]/20 transition"
+                            className="text-xs bg-primary/10 text-primary px-2 py-1 rounded hover:bg-primary/20 transition"
                           >
                             Ver Mapa
                           </a>
@@ -361,7 +361,7 @@ const DashboardPage = () => {
               <h3 className="font-bold text-xl text-foreground">Comentários e Feedbacks</h3>
               <button
                 onClick={() => exportCSV('evaluations')}
-                className="text-sm flex items-center gap-2 text-[hsl(195,100%,44%)] hover:underline font-medium"
+                className="text-sm flex items-center gap-2 text-primary hover:underline font-medium"
               >
                 <Download size={16} /> Exportar CSV
               </button>
@@ -373,7 +373,7 @@ const DashboardPage = () => {
                   {/* Header: Name & Date */}
                   <div className="flex justify-between items-start border-b border-border/30 pb-3">
                     <div className="flex items-center gap-3">
-                      <div className="bg-[hsl(195,100%,55%)]/10 p-2 rounded-full text-[hsl(195,100%,44%)]">
+                      <div className="bg-primary/10 p-2 rounded-full text-primary">
                         <Users size={20} />
                       </div>
                       <div>
@@ -435,7 +435,7 @@ const DashboardPage = () => {
                         <p className="text-sm font-medium text-muted-foreground mb-2">
                           <span className="italic">"O evento foi uma oportunidade de..."</span>
                         </p>
-                        <blockquote className="border-l-4 border-[hsl(347,78%,60%)] pl-4 py-1 text-lg font-medium text-foreground/80 italic bg-gradient-to-r from-[hsl(347,78%,60%)]/5 to-transparent rounded-r-lg">
+                        <blockquote className="border-l-4 border-secondary pl-4 py-1 text-lg font-medium text-foreground/80 italic bg-gradient-to-r from-secondary/5 to-transparent rounded-r-lg">
                           {e.phrase_completion}
                         </blockquote>
                       </div>
@@ -459,7 +459,7 @@ const DashboardPage = () => {
                 href="/nuvem-telao"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-[hsl(195,100%,55%)] to-[hsl(347,78%,60%)] text-white font-bold hover:scale-105 transition shadow-lg"
+                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-primary to-secondary text-white font-black hover:scale-[1.03] transition shadow-lg"
               >
                 Abrir Telão da Nuvem
               </a>

@@ -46,12 +46,11 @@ export const GradientButton = ({
   className?: string;
   disabled?: boolean;
   type?: "button" | "submit";
-  variant?: "primary" | "secondary" | "reverse";
+  variant?: "primary" | "secondary";
 }) => {
   const gradients = {
-    primary: "bg-gradient-to-r from-primary to-secondary",
+    primary: "bg-gradient-to-r from-primary via-primary to-secondary",
     secondary: "bg-gradient-to-r from-secondary to-primary",
-    reverse: "bg-gradient-to-r from-secondary via-accent to-primary"
   };
 
   return (
@@ -60,12 +59,13 @@ export const GradientButton = ({
       onClick={onClick}
       disabled={disabled}
       className={`
-        w-full py-4 px-8 rounded-full text-white font-semibold text-lg
+        w-full py-4 px-8 rounded-full text-white font-black text-lg
         ${gradients[variant]}
-        hover:opacity-90 hover:scale-[1.02] hover:shadow-xl
+        hover:brightness-110 hover:scale-[1.03] hover:shadow-2xl
+        active:scale-[0.98]
         transition-all duration-300 ease-out
         disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100
-        shadow-lg
+        shadow-xl
         ${className}
       `}
     >
@@ -203,7 +203,7 @@ export const Layout = ({ children, showLogo = true }: { children: React.ReactNod
   return (
     <div className="min-h-screen bg-background relative">
       {/* Header — fixed overlay, floats above content */}
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'nav-scrolled' : 'bg-gradient-to-r from-primary to-primary/90'}`}>
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'bg-primary/95 backdrop-blur-md shadow-lg' : 'bg-gradient-to-r from-primary to-primary/90'}`}>
         <div className="max-w-7xl mx-auto px-6 sm:px-10 py-5 flex justify-between items-center">
           {/* Logo */}
           <button onClick={() => navigate('/')} className="flex items-center gap-3 group">

@@ -70,7 +70,7 @@ const EvaluationPage = () => {
     return (
       <Layout showLogo={false}>
         <GlassCard className="max-w-md text-center animate-fade-in">
-          <PartyPopper className="w-16 h-16 mx-auto mb-4 text-[hsl(347,78%,60%)]" />
+          <PartyPopper className="w-16 h-16 mx-auto mb-4 text-secondary" />
           <h2 className="text-3xl font-bold text-foreground mb-2">Obrigado!</h2>
           <p className="text-muted-foreground mb-6">
             Sua avaliação foi enviada com sucesso.
@@ -108,14 +108,14 @@ const EvaluationPage = () => {
                   >
                     <Star
                       size={40}
-                      fill={s <= form.rating ? "hsl(45, 100%, 50%)" : "transparent"}
-                      color={s <= form.rating ? "hsl(45, 100%, 50%)" : "hsl(var(--muted-foreground))"}
+                      fill={s <= form.rating ? "hsl(46, 100%, 47%)" : "transparent"}
+                      color={s <= form.rating ? "hsl(46, 100%, 47%)" : "hsl(var(--muted-foreground))"}
                       strokeWidth={1.5}
                     />
                   </button>
                 ))}
               </div>
-              <p className="text-center text-[hsl(347,78%,60%)] font-medium h-6">
+              <p className="text-center text-primary font-bold h-6">
                 {starLabels[form.rating] || ""}
               </p>
             </div>
@@ -135,14 +135,14 @@ const EvaluationPage = () => {
                   >
                     <Star
                       size={40}
-                      fill={s <= form.lectureRating ? "hsl(45, 100%, 50%)" : "transparent"}
-                      color={s <= form.lectureRating ? "hsl(45, 100%, 50%)" : "hsl(var(--muted-foreground))"}
+                      fill={s <= form.lectureRating ? "hsl(46, 100%, 47%)" : "transparent"}
+                      color={s <= form.lectureRating ? "hsl(46, 100%, 47%)" : "hsl(var(--muted-foreground))"}
                       strokeWidth={1.5}
                     />
                   </button>
                 ))}
               </div>
-              <p className="text-center text-[hsl(347,78%,60%)] font-medium h-6">
+              <p className="text-center text-primary font-bold h-6">
                 {starLabels[form.lectureRating] || ""}
               </p>
             </div>
@@ -191,12 +191,12 @@ const EvaluationPage = () => {
                     type="button"
                     onClick={() => setForm({ ...form, energy: opt })}
                     className={`w-full flex items-center p-4 rounded-xl transition-all duration-200 ${form.energy === opt
-                      ? "bg-gradient-to-r from-[hsl(195,100%,55%)]/20 to-[hsl(347,78%,60%)]/20 border-2 border-[hsl(347,78%,60%)]"
+                      ? "bg-gradient-to-r from-primary/10 to-secondary/10 border-2 border-secondary/50"
                       : "bg-muted/60 border-2 border-transparent hover:bg-muted"
                       }`}
                   >
                     {form.energy === opt
-                      ? <CheckCircle2 className="text-[hsl(347,78%,60%)] mr-3" size={22} />
+                      ? <CheckCircle2 className="text-secondary mr-3" size={22} />
                       : <Circle className="text-muted-foreground mr-3" size={22} />
                     }
                     <span className={`font-medium ${form.energy === opt ? 'text-foreground' : 'text-muted-foreground'}`}>

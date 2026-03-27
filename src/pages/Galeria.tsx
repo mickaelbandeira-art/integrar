@@ -10,7 +10,7 @@ const Galeria = () => {
     <Layout>
       <div className="w-full max-w-2xl mx-auto text-center space-y-5 animate-fade-in">
         <div className="space-y-3">
-          <Camera className="w-14 h-14 mx-auto text-[hsl(347,78%,60%)]" />
+          <Camera className="w-14 h-14 mx-auto text-secondary" />
           <h2 className="text-3xl md:text-4xl font-bold text-foreground">
             Galeria de Fotos
           </h2>

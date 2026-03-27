@@ -39,7 +39,7 @@ const Menu = () => {
         {/* User Card */}
         {user && (
           <div className="p-2 flex flex-col items-center text-center space-y-1">
-            <h2 className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-[hsl(195,100%,55%)] to-[hsl(347,78%,60%)]">
+            <h2 className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
               Olá, {user.name}
             </h2>
             <div className="text-xs text-foreground/80 flex flex-col gap-0.5">
@@ -49,8 +49,8 @@ const Menu = () => {
 
             {/* Display Selected Jewel if exists */}
             {userJewel && (
-              <div className="mt-2 flex items-center gap-2 bg-gradient-to-r from-[hsl(315,100%,50%)]/10 to-[hsl(347,78%,60%)]/10 px-2 py-1 rounded-full border border-[hsl(315,100%,50%)]/20 animate-fade-in">
-                <Diamond size={14} className="text-[hsl(315,100%,50%)]" />
+              <div className="mt-2 flex items-center gap-2 bg-secondary/10 px-2 py-1 rounded-full border border-secondary/20 animate-fade-in">
+                <Diamond size={14} className="text-secondary" />
                 <span className="text-xs font-semibold text-foreground/90">{userJewel.jewel_name}</span>
               </div>
             )}
@@ -69,7 +69,7 @@ const Menu = () => {
             </p>
 
             <p className="text-base text-foreground/90 leading-relaxed font-medium">
-              Hoje começa uma <span className="font-bold bg-clip-text text-transparent bg-gradient-to-r from-[hsl(195,100%,50%)] to-[hsl(347,78%,60%)]">experiência Integrar</span>, conexão e propósito.
+              Hoje começa uma <span className="font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">experiência Integrar</span>, conexão e propósito.
             </p>
           </div>
 
@@ -77,7 +77,7 @@ const Menu = () => {
             Mas lembre-se:
           </h3>
 
-          <div className="p-4 rounded-xl bg-gradient-to-r from-[hsl(195,100%,50%)] to-[hsl(347,78%,60%)] text-white font-bold text-lg shadow-lg transform hover:scale-105 transition duration-300 leading-snug">
+          <div className="p-4 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-black text-lg shadow-xl transform hover:scale-[1.03] transition duration-300 leading-snug">
             Sua participação começa quando você se permite INTEGRAR.
           </div>
         </div>
