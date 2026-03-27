@@ -66,6 +66,7 @@ export const ScrollTextGallery: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const labelRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
 
   const [imagesLoaded, setImagesLoaded] = React.useState(0);
   const totalImages = textCards.length;
@@ -92,6 +93,22 @@ export const ScrollTextGallery: React.FC = () => {
       });
 
       tl.to(trackRef.current, { x: xMove, ease: 'none', duration: 10 }, 0);
+
+      // Section Title Reveal
+      gsap.fromTo(headerRef.current,
+        { opacity: 0, y: 30, filter: 'blur(10px)' },
+        {
+          opacity: 1,
+          y: 0,
+          filter: 'blur(0px)',
+          duration: 1.5,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 85%',
+          }
+        }
+      );
 
       gsap.utils.toArray<HTMLElement>('.text-card').forEach((card, i) => {
         gsap.fromTo(
@@ -124,6 +141,12 @@ export const ScrollTextGallery: React.FC = () => {
         },
       });
 
+      // Background transition - Seamlessly blend to the next section's color (Cream/F0ede8)
+      tl.to(sectionRef.current, {
+        backgroundColor: '#f0ede8',
+        duration: 2,
+      }, 9);
+
       ScrollTrigger.refresh();
     }, sectionRef);
 
@@ -146,13 +169,13 @@ export const ScrollTextGallery: React.FC = () => {
         </h2>
       </div>
 
-      {/* Section header */}
-      <div className="absolute top-10 right-10 z-20 text-right pointer-events-none">
-        <p className="text-xs uppercase tracking-[0.3em] font-bold" style={{ color: 'rgba(255,255,255,0.3)' }}>
-          Galeria de Valores
-        </p>
-        <div className="w-8 h-[2px] ml-auto mt-1" style={{ background: 'rgba(255,255,255,0.2)' }} />
-      </div>
+       {/* Section header */}
+       <div ref={headerRef} className="absolute top-10 right-10 z-20 text-right pointer-events-none">
+         <p className="text-xs uppercase tracking-[0.3em] font-bold" style={{ color: 'rgba(255,255,255,0.3)' }}>
+           Galeria de Valores
+         </p>
+         <div className="w-8 h-[2px] ml-auto mt-1" style={{ background: 'rgba(255,255,255,0.2)' }} />
+       </div>
 
       {/* Track */}
       <div className="flex items-stretch min-h-screen py-24">
