@@ -30,9 +30,12 @@ export const ScrollGallery: React.FC = () => {
   useEffect(() => {
     if (!sectionRef.current || !galleryRef.current) return;
 
+    const hasInitialized = { current: false };
+
     const ctx = gsap.context(() => {
       const runSetup = () => {
-        if (!galleryRef.current || !sectionRef.current) return;
+        if (!galleryRef.current || !sectionRef.current || hasInitialized.current) return;
+        hasInitialized.current = true;
         
         const totalWidth = galleryRef.current.scrollWidth;
         const windowWidth = window.innerWidth;

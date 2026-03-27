@@ -22,7 +22,11 @@ export const ScrollVideoHero: React.FC<ScrollVideoHeroProps> = ({
 
     const initTimeline = () => {
       const duration = video.duration;
-      if (!duration) return;
+      if (!duration || isNaN(duration)) return;
+
+      // Avoid double initialization
+      const existing = ScrollTrigger.getAll().find(st => st.trigger === containerRef.current);
+      if (existing) return;
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -33,6 +37,7 @@ export const ScrollVideoHero: React.FC<ScrollVideoHeroProps> = ({
           scrub: 2.5,
           markers: false,
           anticipatePin: 1,
+          invalidateOnRefresh: true,
         }
       });
 
@@ -50,7 +55,7 @@ export const ScrollVideoHero: React.FC<ScrollVideoHeroProps> = ({
         { y: "0%", opacity: 1, duration: 3, ease: "expo.out" },
         0.7
       );
-      // Scene 1 exit — up (later so text lingers)
+      // Scene 1 exit
       tl.to("#scene-1",
         { y: -120, opacity: 0, filter: "blur(10px)", duration: 2.5, ease: "power2.in" },
         5
@@ -79,19 +84,22 @@ export const ScrollVideoHero: React.FC<ScrollVideoHeroProps> = ({
         9
       );
 
-      // Final exit — full page up
+      // Final exit
       tl.to([video, "#scene-3"],
         { opacity: 0, filter: "blur(16px)", y: -80, duration: 2, ease: "power2.in" },
         11
       );
+      
+      ScrollTrigger.refresh();
     };
 
     video.addEventListener('loadedmetadata', initTimeline);
+    video.addEventListener('canplay', initTimeline);
     if (video.readyState >= 1) initTimeline();
 
     return () => {
       video.removeEventListener('loadedmetadata', initTimeline);
-      // Kill only ScrollTriggers anchored on this container
+      video.removeEventListener('canplay', initTimeline);
       ScrollTrigger.getAll()
         .filter(st => st.trigger === containerRef.current)
         .forEach(st => st.kill());
@@ -99,15 +107,14 @@ export const ScrollVideoHero: React.FC<ScrollVideoHeroProps> = ({
   }, [scrollDistance]);
 
   return (
-    // AeC Blue — soft, translucent
     <div ref={containerRef} className="relative w-full overflow-hidden"
       style={{ 
         height: '100vh',
-        background: 'linear-gradient(160deg, #1a6ab0 0%, #2980c8 50%, #4fa0e0 100%)' 
+        background: 'linear-gradient(160deg, #0a3d62 0%, #1a6ab0 50%, #2980c8 100%)' 
       }}>
 
       {/* Video — blended over the blue */}
-      <div className="absolute inset-0 w-full h-screen">
+      <div className="absolute inset-0 w-full h-screen bg-black">
         <video
           ref={videoRef}
           src={videoSrc}
@@ -115,14 +122,11 @@ export const ScrollVideoHero: React.FC<ScrollVideoHeroProps> = ({
           playsInline
           preload="auto"
           className="w-full h-full object-cover"
-          style={{ opacity: 0.45, mixBlendMode: 'luminosity', willChange: 'contents' }}
+          style={{ opacity: 0.6, willChange: 'contents' }}
         />
-        {/* Soft gradient veil — top and bottom only */}
+        {/* Soft gradient veil */}
         <div className="absolute inset-0"
-          style={{ background: 'linear-gradient(to bottom, rgba(20,80,150,0.45) 0%, rgba(30,100,180,0.05) 50%, rgba(15,60,120,0.5) 100%)' }} />
-        {/* Very subtle center glow */}
-        <div className="absolute inset-0"
-          style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 45%, rgba(100,170,230,0.15) 0%, transparent 65%)' }} />
+          style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 50%, rgba(0,0,0,0.5) 100%)' }} />
       </div>
 
       {/* Content */}

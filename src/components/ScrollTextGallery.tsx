@@ -70,9 +70,12 @@ export const ScrollTextGallery: React.FC = () => {
   useEffect(() => {
     if (!sectionRef.current || !trackRef.current) return;
 
+    const hasInitialized = { current: false };
+
     const ctx = gsap.context(() => {
       const runSetup = () => {
-        if (!trackRef.current || !sectionRef.current) return;
+        if (!trackRef.current || !sectionRef.current || hasInitialized.current) return;
+        hasInitialized.current = true;
 
         const totalWidth = trackRef.current.scrollWidth;
         const windowWidth = window.innerWidth;
