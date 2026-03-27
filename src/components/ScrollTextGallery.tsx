@@ -72,11 +72,12 @@ export const ScrollTextGallery: React.FC = () => {
 
     const ctx = gsap.context(() => {
       const runSetup = () => {
-        const totalWidth = trackRef.current!.scrollWidth;
+        if (!trackRef.current || !sectionRef.current) return;
+
+        const totalWidth = trackRef.current.scrollWidth;
         const windowWidth = window.innerWidth;
         const xMove = -(totalWidth - windowWidth);
 
-        // Horizontal scrub
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -85,12 +86,12 @@ export const ScrollTextGallery: React.FC = () => {
             pin: true,
             scrub: 1.2,
             anticipatePin: 1,
+            invalidateOnRefresh: true,
           },
         });
 
         tl.to(trackRef.current, { x: xMove, ease: 'none', duration: 10 }, 0);
 
-        // Stagger card entrance (same as photo gallery)
         gsap.utils.toArray<HTMLElement>('.text-card').forEach((card, i) => {
           gsap.fromTo(
             card,
@@ -111,7 +112,6 @@ export const ScrollTextGallery: React.FC = () => {
           );
         });
 
-        // Label parallax drift
         gsap.to(labelRef.current, {
           x: xMove * 0.15,
           ease: 'none',
@@ -122,11 +122,43 @@ export const ScrollTextGallery: React.FC = () => {
             scrub: 2,
           },
         });
+
+        ScrollTrigger.refresh();
       };
 
-      const t = setTimeout(runSetup, 300);
+      // Wait for all images in the track
+      const images = trackRef.current!.querySelectorAll('img');
+      let loadedCount = 0;
+      const totalImages = images.length;
+
+      const checkAllLoaded = () => {
+        loadedCount++;
+        if (loadedCount >= totalImages) {
+          runSetup();
+        }
+      };
+
+      if (totalImages === 0) {
+        runSetup();
+      } else {
+        images.forEach(img => {
+          if (img.complete) {
+            checkAllLoaded();
+          } else {
+            img.addEventListener('load', checkAllLoaded);
+            img.addEventListener('error', checkAllLoaded);
+          }
+        });
+      }
+
+      const fallback = setTimeout(runSetup, 2500);
+
       return () => {
-        clearTimeout(t);
+        clearTimeout(fallback);
+        images.forEach(img => {
+          img.removeEventListener('load', checkAllLoaded);
+          img.removeEventListener('error', checkAllLoaded);
+        });
       };
     }, sectionRef);
 

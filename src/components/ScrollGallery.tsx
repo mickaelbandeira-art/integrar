@@ -31,9 +31,10 @@ export const ScrollGallery: React.FC = () => {
     if (!sectionRef.current || !galleryRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Wait for layout to settle
       const runSetup = () => {
-        const totalWidth = galleryRef.current!.scrollWidth;
+        if (!galleryRef.current || !sectionRef.current) return;
+        
+        const totalWidth = galleryRef.current.scrollWidth;
         const windowWidth = window.innerWidth;
         const xMove = -(totalWidth - windowWidth);
 
@@ -45,17 +46,16 @@ export const ScrollGallery: React.FC = () => {
             pin: true,
             scrub: 1.2,
             anticipatePin: 1,
+            invalidateOnRefresh: true,
           }
         });
 
-        // Horizontal slide of gallery
         tl.to(galleryRef.current, {
           x: xMove,
           ease: "none",
           duration: 10
         }, 0);
 
-        // Stagger entrance for each card — Aeolla-style surge from below
         gsap.utils.toArray<HTMLElement>('.gallery-card').forEach((card, i) => {
           gsap.fromTo(card,
             { y: 80, opacity: 0, scale: 0.92 },
@@ -75,7 +75,6 @@ export const ScrollGallery: React.FC = () => {
           );
         });
 
-        // Label parallax — drifts left slower than gallery
         gsap.to(labelRef.current, {
           x: xMove * 0.15,
           ease: "none",
@@ -86,10 +85,46 @@ export const ScrollGallery: React.FC = () => {
             scrub: 2,
           }
         });
+
+        // Ensure everything is calculated correctly after mounting
+        ScrollTrigger.refresh();
       };
 
-      const t = setTimeout(runSetup, 300);
-      return () => { clearTimeout(t); };
+      // Robust check for image loading
+      const images = galleryRef.current!.querySelectorAll('img');
+      let loadedCount = 0;
+      const totalImages = images.length;
+
+      const checkAllLoaded = () => {
+        loadedCount++;
+        if (loadedCount >= totalImages) {
+          runSetup();
+        }
+      };
+
+      if (totalImages === 0) {
+        runSetup();
+      } else {
+        images.forEach(img => {
+          if (img.complete) {
+            checkAllLoaded();
+          } else {
+            img.addEventListener('load', checkAllLoaded);
+            img.addEventListener('error', checkAllLoaded); // Also proceed on error
+          }
+        });
+      }
+
+      // Safety fallback
+      const fallback = setTimeout(runSetup, 2500);
+      
+      return () => {
+        clearTimeout(fallback);
+        images.forEach(img => {
+          img.removeEventListener('load', checkAllLoaded);
+          img.removeEventListener('error', checkAllLoaded);
+        });
+      };
     }, sectionRef);
 
     return () => ctx.revert();
