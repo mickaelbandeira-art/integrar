@@ -85,9 +85,9 @@ export const ScrollVideoHero: React.FC<ScrollVideoHeroProps> = ({
         9
       );
 
-      // Final exit - Transition background to black for seamless handover to next section
+      // Final exit - Transition background to the next section's color (#f0ede8) for seamless handover
       tl.to(containerRef.current, 
-        { background: '#0d0d0d', duration: 2 }, 
+        { background: '#f0ede8', duration: 2 }, 
         10.5
       );
       

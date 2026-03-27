@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { Layout, GradientButton, GlassCard } from '../components/LayoutComponents';
 import { ScrollVideoHero } from '../components/ScrollVideoHero';
 import { ScrollGallery } from '../components/ScrollGallery';
-import { ScrollTextGallery } from '../components/ScrollTextGallery';
 import {
   Dialog,
   DialogContent,
@@ -71,10 +70,7 @@ const Index = () => {
           ctaContent={renderCTA()}
         />
 
-        {/* Text Gallery — same kinetic scroll, mosões e valores AeC */}
-        <ScrollTextGallery />
-
-        {/* Photo Gallery */}
+        {/* Photo Gallery — now the second section */}
         <ScrollGallery />
       </div>
       
