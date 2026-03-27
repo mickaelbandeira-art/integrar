@@ -67,106 +67,68 @@ export const ScrollTextGallery: React.FC = () => {
   const trackRef = useRef<HTMLDivElement>(null);
   const labelRef = useRef<HTMLDivElement>(null);
 
+  const [imagesLoaded, setImagesLoaded] = React.useState(0);
+  const totalImages = textCards.length;
+
   useEffect(() => {
     if (!sectionRef.current || !trackRef.current) return;
-
-    const hasInitialized = { current: false };
+    if (imagesLoaded < totalImages) return;
 
     const ctx = gsap.context(() => {
-      const runSetup = () => {
-        if (!trackRef.current || !sectionRef.current || hasInitialized.current) return;
-        hasInitialized.current = true;
+      const totalWidth = trackRef.current!.scrollWidth;
+      const windowWidth = window.innerWidth;
+      const xMove = -(totalWidth - windowWidth);
 
-        const totalWidth = trackRef.current.scrollWidth;
-        const windowWidth = window.innerWidth;
-        const xMove = -(totalWidth - windowWidth);
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: () => `+=${totalWidth * 0.65}`,
+          pin: true,
+          scrub: 1.2,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
 
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top top',
-            end: () => `+=${totalWidth * 0.65}`,
-            pin: true,
-            scrub: 1.2,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-          },
-        });
+      tl.to(trackRef.current, { x: xMove, ease: 'none', duration: 10 }, 0);
 
-        tl.to(trackRef.current, { x: xMove, ease: 'none', duration: 10 }, 0);
-
-        gsap.utils.toArray<HTMLElement>('.text-card').forEach((card, i) => {
-          gsap.fromTo(
-            card,
-            { y: 80, opacity: 0, scale: 0.92 },
-            {
-              y: 0,
-              opacity: 1,
-              scale: 1,
-              duration: 1.2,
-              delay: i * 0.15,
-              ease: 'power4.out',
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: 'top 80%',
-                toggleActions: 'play none none none',
-              },
-            }
-          );
-        });
-
-        gsap.to(labelRef.current, {
-          x: xMove * 0.15,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top top',
-            end: () => `+=${totalWidth * 0.65}`,
-            scrub: 2,
-          },
-        });
-
-        ScrollTrigger.refresh();
-      };
-
-      // Wait for all images in the track
-      const images = trackRef.current!.querySelectorAll('img');
-      let loadedCount = 0;
-      const totalImages = images.length;
-
-      const checkAllLoaded = () => {
-        loadedCount++;
-        if (loadedCount >= totalImages) {
-          runSetup();
-        }
-      };
-
-      if (totalImages === 0) {
-        runSetup();
-      } else {
-        images.forEach(img => {
-          if (img.complete) {
-            checkAllLoaded();
-          } else {
-            img.addEventListener('load', checkAllLoaded);
-            img.addEventListener('error', checkAllLoaded);
+      gsap.utils.toArray<HTMLElement>('.text-card').forEach((card, i) => {
+        gsap.fromTo(
+          card,
+          { y: 80, opacity: 0, scale: 0.92 },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 1.2,
+            delay: i * 0.15,
+            ease: 'power4.out',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top 80%',
+              toggleActions: 'play none none none',
+            },
           }
-        });
-      }
+        );
+      });
 
-      const fallback = setTimeout(runSetup, 2500);
+      gsap.to(labelRef.current, {
+        x: xMove * 0.15,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: () => `+=${totalWidth * 0.65}`,
+          scrub: 2,
+        },
+      });
 
-      return () => {
-        clearTimeout(fallback);
-        images.forEach(img => {
-          img.removeEventListener('load', checkAllLoaded);
-          img.removeEventListener('error', checkAllLoaded);
-        });
-      };
+      ScrollTrigger.refresh();
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [imagesLoaded, totalImages]);
 
   return (
     <div ref={sectionRef} className="relative w-full overflow-hidden bg-[#0d0d0d]" style={{ height: '100vh' }}>
@@ -231,6 +193,8 @@ export const ScrollTextGallery: React.FC = () => {
                   <img 
                     src={card.image} 
                     alt={card.headline} 
+                    onLoad={() => setImagesLoaded(prev => prev + 1)}
+                    onError={() => setImagesLoaded(prev => prev + 1)}
                     className="w-full h-full object-cover scale-105 group-hover/card:scale-100 transition-transform duration-1000"
                   />
                   {/* Subtle vignette on image */}

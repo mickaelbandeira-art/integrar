@@ -27,111 +27,71 @@ export const ScrollGallery: React.FC = () => {
   const galleryRef = useRef<HTMLDivElement>(null);
   const labelRef = useRef<HTMLDivElement>(null);
 
+  const [imagesLoaded, setImagesLoaded] = React.useState(0);
+  const totalImages = galleryData.length;
+
   useEffect(() => {
     if (!sectionRef.current || !galleryRef.current) return;
-
-    const hasInitialized = { current: false };
+    if (imagesLoaded < totalImages) return;
 
     const ctx = gsap.context(() => {
-      const runSetup = () => {
-        if (!galleryRef.current || !sectionRef.current || hasInitialized.current) return;
-        hasInitialized.current = true;
-        
-        const totalWidth = galleryRef.current.scrollWidth;
-        const windowWidth = window.innerWidth;
-        const xMove = -(totalWidth - windowWidth);
+      const totalWidth = galleryRef.current!.scrollWidth;
+      const windowWidth = window.innerWidth;
+      const xMove = -(totalWidth - windowWidth);
 
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top top",
-            end: () => `+=${totalWidth * 0.65}`,
-            pin: true,
-            scrub: 1.2,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-          }
-        });
-
-        tl.to(galleryRef.current, {
-          x: xMove,
-          ease: "none",
-          duration: 10
-        }, 0);
-
-        gsap.utils.toArray<HTMLElement>('.gallery-card').forEach((card, i) => {
-          gsap.fromTo(card,
-            { y: 80, opacity: 0, scale: 0.92 },
-            {
-              y: 0,
-              opacity: 1,
-              scale: 1,
-              duration: 1.2,
-              delay: i * 0.15,
-              ease: 'power4.out',
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: 'top 80%',
-                toggleActions: 'play none none none',
-              }
-            }
-          );
-        });
-
-        gsap.to(labelRef.current, {
-          x: xMove * 0.15,
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top top",
-            end: () => `+=${totalWidth * 0.8}`,
-            scrub: 2,
-          }
-        });
-
-        // Ensure everything is calculated correctly after mounting
-        ScrollTrigger.refresh();
-      };
-
-      // Robust check for image loading
-      const images = galleryRef.current!.querySelectorAll('img');
-      let loadedCount = 0;
-      const totalImages = images.length;
-
-      const checkAllLoaded = () => {
-        loadedCount++;
-        if (loadedCount >= totalImages) {
-          runSetup();
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: () => `+=${totalWidth * 0.65}`,
+          pin: true,
+          scrub: 1.2,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
         }
-      };
+      });
 
-      if (totalImages === 0) {
-        runSetup();
-      } else {
-        images.forEach(img => {
-          if (img.complete) {
-            checkAllLoaded();
-          } else {
-            img.addEventListener('load', checkAllLoaded);
-            img.addEventListener('error', checkAllLoaded); // Also proceed on error
+      tl.to(galleryRef.current, {
+        x: xMove,
+        ease: "none",
+        duration: 10
+      }, 0);
+
+      gsap.utils.toArray<HTMLElement>('.gallery-card').forEach((card, i) => {
+        gsap.fromTo(card,
+          { y: 80, opacity: 0, scale: 0.92 },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 1.2,
+            delay: i * 0.15,
+            ease: 'power4.out',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top 80%',
+              toggleActions: 'play none none none',
+            }
           }
-        });
-      }
+        );
+      });
 
-      // Safety fallback
-      const fallback = setTimeout(runSetup, 2500);
-      
-      return () => {
-        clearTimeout(fallback);
-        images.forEach(img => {
-          img.removeEventListener('load', checkAllLoaded);
-          img.removeEventListener('error', checkAllLoaded);
-        });
-      };
+      gsap.to(labelRef.current, {
+        x: xMove * 0.15,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: () => `+=${totalWidth * 0.8}`,
+          scrub: 2,
+        }
+      });
+
+      ScrollTrigger.refresh();
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [imagesLoaded, totalImages]);
 
   return (
     <div ref={sectionRef} className="relative w-full overflow-hidden bg-[#f0ede8]" style={{ height: '100vh' }}>
@@ -166,9 +126,11 @@ export const ScrollGallery: React.FC = () => {
               {/* Card — Aeolla vertical portrait format */}
               <div className="relative w-full overflow-hidden rounded-3xl shadow-xl"
                 style={{ aspectRatio: '3/4' }}>
-                <img
+            <img
                   src={item.image}
                   alt={item.title}
+                  onLoad={() => setImagesLoaded(prev => prev + 1)}
+                  onError={() => setImagesLoaded(prev => prev + 1)}
                   className="w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"
                 />
 

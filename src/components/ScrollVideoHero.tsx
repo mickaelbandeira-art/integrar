@@ -20,13 +20,14 @@ export const ScrollVideoHero: React.FC<ScrollVideoHeroProps> = ({
     const video = videoRef.current;
     if (!video || !containerRef.current) return;
 
+    const isInit = { current: false };
+
     const initTimeline = () => {
+      if (isInit.current) return;
       const duration = video.duration;
       if (!duration || isNaN(duration)) return;
-
-      // Avoid double initialization
-      const existing = ScrollTrigger.getAll().find(st => st.trigger === containerRef.current);
-      if (existing) return;
+      
+      isInit.current = true;
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -89,7 +90,7 @@ export const ScrollVideoHero: React.FC<ScrollVideoHeroProps> = ({
         { opacity: 0, filter: "blur(16px)", y: -80, duration: 2, ease: "power2.in" },
         11
       );
-      
+
       ScrollTrigger.refresh();
     };
 
@@ -110,11 +111,11 @@ export const ScrollVideoHero: React.FC<ScrollVideoHeroProps> = ({
     <div ref={containerRef} className="relative w-full overflow-hidden"
       style={{ 
         height: '100vh',
-        background: 'linear-gradient(160deg, #0a3d62 0%, #1a6ab0 50%, #2980c8 100%)' 
+        background: 'linear-gradient(160deg, #1a6ab0 0%, #2980c8 50%, #4fa0e0 100%)' 
       }}>
 
       {/* Video — blended over the blue */}
-      <div className="absolute inset-0 w-full h-screen bg-black">
+      <div className="absolute inset-0 w-full h-screen">
         <video
           ref={videoRef}
           src={videoSrc}
@@ -122,11 +123,14 @@ export const ScrollVideoHero: React.FC<ScrollVideoHeroProps> = ({
           playsInline
           preload="auto"
           className="w-full h-full object-cover"
-          style={{ opacity: 0.6, willChange: 'contents' }}
+          style={{ opacity: 0.45, mixBlendMode: 'luminosity', willChange: 'contents' }}
         />
-        {/* Soft gradient veil */}
+        {/* Soft gradient veil — top and bottom only */}
         <div className="absolute inset-0"
-          style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 50%, rgba(0,0,0,0.5) 100%)' }} />
+          style={{ background: 'linear-gradient(to bottom, rgba(20,80,150,0.45) 0%, rgba(30,100,180,0.05) 50%, rgba(15,60,120,0.5) 100%)' }} />
+        {/* Very subtle center glow */}
+        <div className="absolute inset-0"
+          style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 45%, rgba(100,170,230,0.15) 0%, transparent 65%)' }} />
       </div>
 
       {/* Content */}
