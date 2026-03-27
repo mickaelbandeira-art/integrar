@@ -1,0 +1,33 @@
+{
+    "mcpServers": {
+        "context7": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@upstash/context7-mcp",
+                "--api-key",
+                "YOUR_API_KEY"
+            ]
+        },
+        "shadcn": {
+            "command": "npx",
+            "args": [
+                "shadcn@latest",
+                "mcp"
+            ]
+        },
+        "firecrawl": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@mendable/firecrawl-mcp"
+            ],
+            "env": {
+                "FIRECRAWL_API_KEY": "fc-27b336639fee46518bb924638cf74a09"
+            }
+        }
+    }
+}
+
+// setup mcp server in  ~/.gemini\antigravity\mcp_config.json
+
