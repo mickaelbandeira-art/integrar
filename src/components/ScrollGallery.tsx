@@ -29,65 +29,75 @@ export const ScrollGallery: React.FC = () => {
 
   const [imagesLoaded, setImagesLoaded] = React.useState(0);
   const totalImages = galleryData.length;
+  const isInitialized = useRef(false);
 
   useEffect(() => {
-    if (!sectionRef.current || !galleryRef.current) return;
+    if (!sectionRef.current || !galleryRef.current || isInitialized.current) return;
+    
+    // Only proceed if all images are loaded
     if (imagesLoaded < totalImages) return;
+    
+    isInitialized.current = true;
 
     const ctx = gsap.context(() => {
-      const totalWidth = galleryRef.current!.scrollWidth;
-      const windowWidth = window.innerWidth;
-      const xMove = -(totalWidth - windowWidth);
+      // Small timeout to ensure DOM layout is truly finished
+      setTimeout(() => {
+        if (!galleryRef.current || !sectionRef.current) return;
+        
+        const totalWidth = galleryRef.current.scrollWidth;
+        const windowWidth = window.innerWidth;
+        const xMove = -(totalWidth - windowWidth);
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: () => `+=${totalWidth * 0.65}`,
-          pin: true,
-          scrub: 1.2,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        }
-      });
-
-      tl.to(galleryRef.current, {
-        x: xMove,
-        ease: "none",
-        duration: 10
-      }, 0);
-
-      gsap.utils.toArray<HTMLElement>('.gallery-card').forEach((card, i) => {
-        gsap.fromTo(card,
-          { y: 80, opacity: 0, scale: 0.92 },
-          {
-            y: 0,
-            opacity: 1,
-            scale: 1,
-            duration: 1.2,
-            delay: i * 0.15,
-            ease: 'power4.out',
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: 'top 80%',
-              toggleActions: 'play none none none',
-            }
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: () => `+=${totalWidth * 0.75}`, // Increased end for smoother exit
+            pin: true,
+            scrub: 1.5,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
           }
-        );
-      });
+        });
 
-      gsap.to(labelRef.current, {
-        x: xMove * 0.15,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: () => `+=${totalWidth * 0.8}`,
-          scrub: 2,
-        }
-      });
+        tl.to(galleryRef.current, {
+          x: xMove,
+          ease: "none",
+          duration: 10
+        }, 0);
 
-      ScrollTrigger.refresh();
+        gsap.utils.toArray<HTMLElement>('.gallery-card').forEach((card, i) => {
+          gsap.fromTo(card,
+            { y: 80, opacity: 0, scale: 0.92 },
+            {
+              y: 0,
+              opacity: 1,
+              scale: 1,
+              duration: 1.2,
+              delay: i * 0.15,
+              ease: 'power4.out',
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: 'top 80%',
+                toggleActions: 'play none none none',
+              }
+            }
+          );
+        });
+
+        gsap.to(labelRef.current, {
+          x: xMove * 0.15,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: () => `+=${totalWidth * 0.8}`,
+            scrub: 2,
+          }
+        });
+
+        ScrollTrigger.refresh();
+      }, 100);
     }, sectionRef);
 
     return () => ctx.revert();

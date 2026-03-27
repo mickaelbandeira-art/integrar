@@ -70,29 +70,35 @@ export const ScrollTextGallery: React.FC = () => {
 
   const [imagesLoaded, setImagesLoaded] = React.useState(0);
   const totalImages = textCards.length;
+  const isInitialized = useRef(false);
 
   useEffect(() => {
-    if (!sectionRef.current || !trackRef.current) return;
+    if (!sectionRef.current || !trackRef.current || isInitialized.current) return;
     if (imagesLoaded < totalImages) return;
+    
+    isInitialized.current = true;
 
     const ctx = gsap.context(() => {
-      const totalWidth = trackRef.current!.scrollWidth;
-      const windowWidth = window.innerWidth;
-      const xMove = -(totalWidth - windowWidth);
+      setTimeout(() => {
+        if (!trackRef.current || !sectionRef.current) return;
+        
+        const totalWidth = trackRef.current.scrollWidth;
+        const windowWidth = window.innerWidth;
+        const xMove = -(totalWidth - windowWidth);
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top top',
-          end: () => `+=${totalWidth * 0.65}`,
-          pin: true,
-          scrub: 1.2,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        },
-      });
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top top',
+            end: () => `+=${totalWidth * 0.75}`,
+            pin: true,
+            scrub: 1.5,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+        });
 
-      tl.to(trackRef.current, { x: xMove, ease: 'none', duration: 10 }, 0);
+        tl.to(trackRef.current, { x: xMove, ease: 'none', duration: 10 }, 0);
 
       // Section Title Reveal
       gsap.fromTo(headerRef.current,
@@ -148,6 +154,7 @@ export const ScrollTextGallery: React.FC = () => {
       }, 9);
 
       ScrollTrigger.refresh();
+      }, 100);
     }, sectionRef);
 
     return () => ctx.revert();
