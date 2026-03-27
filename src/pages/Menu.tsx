@@ -69,7 +69,7 @@ const Menu = () => {
             </p>
 
             <p className="text-base text-foreground/90 leading-relaxed font-medium">
-              Hoje começa uma <span className="font-bold bg-clip-text text-transparent bg-gradient-to-r from-[hsl(315,100%,50%)] to-[hsl(347,78%,60%)]">jornada de aprendizado</span>, crescimento e propósito.
+              Hoje começa uma <span className="font-bold bg-clip-text text-transparent bg-gradient-to-r from-[hsl(195,100%,50%)] to-[hsl(347,78%,60%)]">experiência Integrar</span>, conexão e propósito.
             </p>
           </div>
 
@@ -78,7 +78,7 @@ const Menu = () => {
           </h3>
 
           <div className="p-4 rounded-xl bg-gradient-to-r from-[hsl(195,100%,50%)] to-[hsl(347,78%,60%)] text-white font-bold text-lg shadow-lg transform hover:scale-105 transition duration-300 leading-snug">
-            A Jornada só começa quando você acredita no chamado.
+            Sua participação começa quando você se permite INTEGRAR.
           </div>
         </div>
 
