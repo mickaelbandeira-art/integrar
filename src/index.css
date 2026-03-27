@@ -93,12 +93,17 @@
     @apply border-border;
   }
 
-  html {
-    font-family: 'Inter', system-ui, sans-serif;
+  html, body {
+    @apply antialiased overflow-x-hidden;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-background text-foreground;
   }
 }
 

@@ -60,11 +60,10 @@ const Index = () => {
   return (
     <Layout showLogo={false}>
       {/* 
-        Full-bleed scrollytelling wrapper.
-        We set a base background that matches the final section (#f0ede8) 
-        to prevent white flashes at the bottom.
+        Full-bleed scrollytelling container.
+        We rely on the global overflow-x: hidden from index.css.
       */}
-      <div className="w-full overflow-x-hidden bg-[#f0ede8]">
+      <div className="w-full bg-[#f0ede8] selection:bg-primary/20">
         {/* Hero */}
         <ScrollVideoHero 
           videoSrc="/hero-video.mp4" 
