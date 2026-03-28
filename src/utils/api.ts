@@ -4,8 +4,8 @@ import { supabase } from '../lib/supabase';
 export interface Checkin {
     id?: string;
     user_name: string;
-    user_email?: string;
-    matricula: string;
+    user_email?: string | null;
+    matricula?: string | null;
     latitude?: number | null;
     longitude?: number | null;
     created_at?: string;
@@ -127,7 +127,7 @@ export const getEvaluations = async () => {
 };
 
 // Current User (Session persistence)
-export const setCurrentUser = (name: string, email: string, matricula: string) => {
+export const setCurrentUser = (name: string, email: string | null, matricula: string | null) => {
     const session = { name, email, matricula };
     localStorage.setItem('user_session', JSON.stringify(session));
     // Keep legacy for backward compatibility if needed, or remove

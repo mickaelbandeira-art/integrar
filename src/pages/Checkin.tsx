@@ -19,8 +19,8 @@ const Checkin = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.nome.trim() || !formData.matricula.trim()) {
-      toast.error("Por favor, preencha nome e matrícula.");
+    if (!formData.nome.trim()) {
+      toast.error("Por favor, preencha seu nome.");
       return;
     }
 
@@ -70,16 +70,16 @@ const Checkin = () => {
       // Save check-in to API
       await addCheckin({
         user_name: formData.nome.trim(),
-        user_email: formData.email.trim(),
-        matricula: formData.matricula.trim(),
+        user_email: formData.email.trim() || null,
+        matricula: formData.matricula.trim() || null,
         ...locationData
       });
 
       // Save current user locally for session
       setCurrentUser(
         formData.nome.trim(),
-        formData.email.trim(),
-        formData.matricula.trim()
+        formData.email.trim() || null,
+        formData.matricula.trim() || null
       );
 
       toast.success(`Bem-vindo(a), ${formData.nome}! Check-in realizado.`);
@@ -106,13 +106,13 @@ const Checkin = () => {
           />
           <GradientInput
             label="E-mail"
-            placeholder="Digite seu e-mail coorporativo"
+            placeholder="Digite seu e-mail coorporativo ou pessoal"
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           />
           <GradientInput
-            label="Matrícula"
-            placeholder="Digite sua matrícula"
+            label="Matrícula ou CPF"
+            placeholder="Digite sua matrícula ou CPF"
             value={formData.matricula}
             onChange={(e) => setFormData({ ...formData, matricula: e.target.value })}
           />
