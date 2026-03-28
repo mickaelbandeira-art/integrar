@@ -361,7 +361,7 @@ export const Layout = ({ children, showLogo = true }: { children: React.ReactNod
       </Dialog>
 
       {/* Main Content */}
-      <main className={`flex-grow flex flex-col items-center justify-start ${showLogo ? 'pt-20 md:pt-24 px-4 pb-8' : 'p-0'} z-10 relative`}>
+      <main className={`flex-grow flex flex-col items-center justify-start ${showLogo ? 'pt-20 md:pt-24 px-4 pb-8' : 'pt-28 md:pt-36 px-4 pb-8'} z-10 relative`}>
         {showLogo && (
           <div className="mb-6 animate-fade-in">
             <IntegrarLogo />
